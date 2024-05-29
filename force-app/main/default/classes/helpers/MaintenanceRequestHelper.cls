@@ -20,6 +20,7 @@ public with sharing class MaintenanceRequestHelper {
     List<Equipment_Maintenance_Item__c> maintenanceItems = getMaintenanceItems(
       maintenanceRequestIds
     );
+
     Map<Id, Vehicle__c> vehicleMap = getVehicles(closedRequests);
     Map<Id, Product2> equipmentMap = getEquipments(maintenanceItems);
 
@@ -53,17 +54,13 @@ public with sharing class MaintenanceRequestHelper {
   private static List<Equipment_Maintenance_Item__c> getMaintenanceItems(
     Set<Id> maintenanceRequestIds
   ) {
-    if (
-      !maintenanceRequestIds.isEmpty() &&
-      Schema.sObjectType.Equipment_Maintenance_Item__c.isAccessible()
-    ) {
-      return [
+    return new List<Equipment_Maintenance_Item__c>(
+      [
         SELECT Equipment__c, Maintenance_Request__c
         FROM Equipment_Maintenance_Item__c
         WHERE Maintenance_Request__c IN :maintenanceRequestIds
-      ];
-    }
-    return new List<Equipment_Maintenance_Item__c>();
+      ]
+    );
   }
 
   // Fetches a map of vehicle records associated with the closed maintenance requests
