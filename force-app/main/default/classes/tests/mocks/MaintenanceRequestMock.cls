@@ -35,13 +35,15 @@ public class MaintenanceRequestMock {
 
   public static List<Product2> createEquipments(Integer numRecords) {
     List<Product2> equipments = new List<Product2>();
+    Integer count = 1;
     for (Integer i = 0; i < numRecords; i++) {
       equipments.add(
         new Product2(
           Name = 'Equipment Test' + i,
           Maintenance_Cycle__c = 150,
           Lifespan_Months__c = 30,
-          Replacement_Part__c = true
+          Replacement_Part__c = true,
+          Warehouse_SKU__c = '55d66xxxxxxxxxx74' + count++
         )
       );
     }

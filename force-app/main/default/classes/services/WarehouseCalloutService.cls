@@ -65,8 +65,13 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
 
     // Populate the map with the updated equipment records
     for (Product2 equip : updatedEquipment) {
+      System.debug(
+        'Adding to equipmentMap with key: ' + equip.Warehouse_SKU__c
+      );
+      System.debug('Equip in loop: ' + equip);
       equipmentMap.put(equip.Warehouse_SKU__c, equip);
     }
+    System.debug('equipmentMap keys: ' + equipmentMap.keySet());
 
     // Query existing equipment records from Salesforce based on Warehouse_SKU__c
     List<Product2> existingEquipment = [
